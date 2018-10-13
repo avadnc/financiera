@@ -238,8 +238,8 @@ echo form_input($data);
 //Proveedores
 echo form_label('Proveedores :', 'proveedores');
 $data = array(
-    'name' => 'totalActivo',
-    'id' => 'totalActivo',
+    'name' => 'proveedores',
+    'id' => 'proveedores',
     'maxlength' => '50',
     'size' => '50',
     'type' => 'text',
