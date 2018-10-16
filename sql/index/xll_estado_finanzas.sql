@@ -1,0 +1,2 @@
+ALTER TABLE xll_estado_finanzas ADD INDEX fk_xll_estado_finanzas_1_idx (fk_tercero ASC);
+ALTER TABLE xll_estado_finanzas ADD CONSTRAINT fk_xll_estado_finanzas_tercero FOREIGN KEY (fk_tercero)  REFERENCES xll_tereceros (id);
