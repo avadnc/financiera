@@ -22,7 +22,7 @@ create table if not exists xll_terceros
   notaPrivada				      text,                                		--
   notaPublica				      text,                                        --
   tipoCliente             tinyint        DEFAULT 0,            		-- client 0 Persona Fisica, 1 Persona Moral
-  tipoFinanciera          tinyint        DEFAULT 0,            		-- fournisseur 0 Bancos, 1 Cajas
+  tipoFinanciera          tinyint        DEFAULT 0,            		-- 0 Bancos, 1 Cajas, 2 entidades de credito
   logo                    varchar(255)   DEFAULT NULL,
   fechaModificacion       timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 )ENGINE=innodb;

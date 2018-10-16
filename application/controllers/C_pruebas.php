@@ -11,7 +11,9 @@ class C_pruebas extends CI_Controller
     public function __construct() {
         parent::__construct();
         $this->load->helper('calculoFinanciero');
-        
+        $this->load->database();
+        $this->load->model('Terceros_model');
+                
     }
 
     public function index()
@@ -33,5 +35,18 @@ class C_pruebas extends CI_Controller
         echo 'Los clientes pagan cada: '. diasCliente($dato1,$dato2);
         echo '<br>';
         echo 'Se pagan a los proveeores cada: '. diasProveedor($dato1,$dato2);
+    }
+
+    public function terceros()
+    {
+      
+        //$terceroId = $this->uri->segment(3);
+
+        $tercero = $this->Terceros_model->get_tercero(1);
+        
+        echo '<pre>';
+        var_dump($tercero);
+        echo '</pre>';
+
     }
 }
