@@ -18,11 +18,11 @@ create table if not exists xll_terceros
   telCelular              varchar(20),                         		-- phone number
   url                     varchar(255),                        		--
   email                   varchar(128),                        		--
-  rfc	                   	varchar(128),                         		-- IDProf1: siren or RCS for france, ...
+  rfc	                   	varchar(128) UNIQUE,                         		-- IDProf1: siren or RCS for france, ...
   notaPrivada				      text,                                		--
   notaPublica				      text,                                        --
   tipoCliente             tinyint        DEFAULT 0,            		-- client 0 Persona Fisica, 1 Persona Moral
   tipoFinanciera          tinyint        DEFAULT 0,            		-- fournisseur 0 Bancos, 1 Cajas
   logo                    varchar(255)   DEFAULT NULL,
-  time						        timestamp(current)
+  fechaModificacion       timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 )ENGINE=innodb;

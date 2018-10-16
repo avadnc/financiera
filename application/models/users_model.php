@@ -12,9 +12,18 @@ class Users_model extends CI_Model
     public $password;
     public $fecha_modificacion;
 
-    public function users_get($id)
+    public function get_user($id)
     {
+        $this->db->where(array(
+            'id' => $id,
+            'activo' => 1
+        ));
+        
+        $query = $this->db->get('xll_users');
+        $row = $query->custom_row_object(0, 'Users_model');
 
+        return $row;
+        
     }
 
 }
