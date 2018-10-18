@@ -18,6 +18,25 @@ class C_pruebas extends CI_Controller
 
     public function index()
     {
+        $pass = md5(sha1('admin'));
+        echo $pass;
+    }
+
+    public function terceros()
+    {
+      
+        //$terceroId = $this->uri->segment(3);
+
+        $tercero = $this->Terceros_model->get_tercero(1);
+        
+        echo '<pre>';
+        var_dump($tercero);
+        echo '</pre>';
+
+    }
+
+    public function financiera()
+    {
         $dato1 = 10000 ;
         $dato2 = 150000 ;
         $dato3 = 10000;
@@ -35,18 +54,5 @@ class C_pruebas extends CI_Controller
         echo 'Los clientes pagan cada: '. diasCliente($dato1,$dato2);
         echo '<br>';
         echo 'Se pagan a los proveeores cada: '. diasProveedor($dato1,$dato2);
-    }
-
-    public function terceros()
-    {
-      
-        //$terceroId = $this->uri->segment(3);
-
-        $tercero = $this->Terceros_model->get_tercero(1);
-        
-        echo '<pre>';
-        var_dump($tercero);
-        echo '</pre>';
-
     }
 }

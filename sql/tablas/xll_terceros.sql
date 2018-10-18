@@ -1,6 +1,7 @@
 create table if not exists xll_terceros
 (
   id                    	integer AUTO_INCREMENT PRIMARY KEY,
+  entity                  integer,
   nombreFiscal            varchar(128),                                -- company reference name (should be same length than adherent.societe)
   nombreAlias             varchar(128) NULL,
   fechaConst              DATE NULL,

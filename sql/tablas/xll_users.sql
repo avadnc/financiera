@@ -1,5 +1,6 @@
 create table xll_users(
 id				integer AUTO_INCREMENT PRIMARY KEY,
+entity          integer,
 fk_terecero		integer,
 username		varchar(50) UNIQUE,
 password		varchar(255),

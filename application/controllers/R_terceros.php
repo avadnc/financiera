@@ -37,53 +37,92 @@ class R_terceros extends REST_Controller
 
         $this->load->database();
         $this->load->model('Terceros_model');
+        $this->load->model('Users_model');
 
     }
 
     public function tercero_get()
     {
-        $terceroId = $this->uri->segment(3);
+        $data = $this->get();
+        $user = $data['user'];
+        $password = $data['password'];
 
-        if (!isset($terceroId)) {
+        $user = $this->Users_model->auth_user($user, $password);
+
+        if (isset($user)) {
+
+            $terceroId = $data["id"];
+            $entity = intval($user->entity);
+
+            if (!isset($terceroId) || !isset($entity)) {
+                $respuesta = array(
+                    'err' => true,
+                    'mensaje' => 'Es necesario el ID o la entidad',
+                    'data' => null
+                );
+
+                $this->response($respuesta, 400);
+                return;
+            }
+
+            $tercero = $this->Terceros_model->get_tercero($terceroId, $entity);
+
+            if (isset($tercero)) {
+
+                unset($tercero->parent);
+                unset($tercero->entity);
+                unset($tercero->notaPrivada);
+                unset($tercero->notaPublica);
+                unset($tercero->tipoCliente);
+                unset($tercero->tipoFinanciera);
+                unset($tercero->fechaModificacion);
+
+                $respuesta = array(
+                    'err' => false,
+                    'mensaje' => 'registro cargado correctamente',
+                    'data' => $tercero
+                );
+
+                $this->response($respuesta, 200);
+
+            } else {
+
+                $respuesta = array(
+                    'err' => true,
+                    'mensaje' => 'No se encontró registro con ID ' . $terceroId,
+                    'data' => null
+                );
+
+                $this->response($respuesta, 404);
+
+            }
+        } else {
             $respuesta = array(
                 'err' => true,
-                'mensaje' => 'Es necesario el ID',
+                'mensaje' => 'Usuario o Contraseña Incorrecta',
                 'data' => null
             );
-
-            $this->response($respuesta, 400);
-            return;
+            $this->response($respuesta);
         }
 
-        $tercero = $this->Terceros_model->get_tercero($terceroId);
 
-        if (isset($tercero)) {
+    }
 
-            unset($tercero->parent);
-            unset($tercero->notaPrivada);
-            unset($tercero->notaPublica);
-            unset($tercero->tipoCliente);
-            unset($tercero->tipoFinanciera);
-            unset($tercero->fechaModificacion);
+    public function tercero_put()
+    {
+        $data = $this->put();
 
-            $respuesta = array(
-                'err' => false,
-                'mensaje' => 'registro cargado correctamente',
-                'data' => $tercero
-            );
+        $user = $data['user'];
+        $password = $data['password'];
 
-            $this->response($respuesta, 200);
+        $user = $this->Users_model->auth_user($user, $password);
 
+        if(isset($user)){
+            $this->response("usuario autenticado");
+
+            
         } else {
-
-            $respuesta = array(
-                'err' => true,
-                'mensaje' => 'No se encontró registro con ID ' . $terceroId,
-                'data' => null
-            );
-
-            $this->response($respuesta, 404);
-
+            $this->response("usuario no autenticado");
         }
     }
 }
