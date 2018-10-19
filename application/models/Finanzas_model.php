@@ -6,6 +6,7 @@ class Finanzas_model extends CI_Model
 {
 
     public $entity;
+    public $banco;
     public $fk_tercero;
     public $ventaAnual;
     public $costoVentas;
@@ -41,12 +42,58 @@ class Finanzas_model extends CI_Model
                 $this->$nombre_campo = $valor_campo;
             }
         }
-
         return $this;
     }
 
     public function insert_finanzas(){
+        
+        //verificar el usuario
+        $this->db->select('id');
 
+        $consulta = array(
+            'entity' => $this->entity,
+            'id' => $this->fk_tercero
+        );
+        $this->db->where($consulta);
+
+        $query = $this->db->get('xll_terceros');
+
+        $tercero = $query->row();
+
+        if (isset($tercero)) {
+            $done = $this->db->insert('xll_estado_finanzas', $this);
+
+            if ($done) {
+                $respuesta = array(
+                    'err' => false,
+                    'mensaje' => 'Los datos se han insertado satisfactoriamente',
+                    'data' => array(
+                        'finanzas_id' => $this->db->insert_id()
+                    )
+                );
+    
+            } else {
+                $respuesta = array(
+                    'err' => true,
+                    'mensaje' => 'error al instertar',
+                    'data' => array(
+                        'error' => $this->db->_error_message(),
+                        'error_db' => $this->db->_error_number()
+                    )
+                );
+            }
+            return $respuesta;
+            
+        } else {
+            $respuesta = array(
+                'err' => true,
+                'mensaje' => 'El cliente con id: ' . $this->fk_tercero . ' no existe',
+                'data' => null
+            );
+
+            return $respuesta;
+
+        }
     }
 
     public function get_finanzas($fk_id, $entity){

@@ -44,7 +44,7 @@ function endeudamiento($totalPasivo, $totalActivo)
     }
 }
 //ANCHOR Calculo de Rentabilidad
-function rentrabilidad($utilidadAnual, $ventaAnual)
+function rentabilidad($utilidadAnual, $ventaAnual)
 {
     if (is_numeric($utilidadAnual) && is_numeric($ventaAnual)) {
 

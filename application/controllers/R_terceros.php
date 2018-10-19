@@ -36,8 +36,11 @@ class R_terceros extends REST_Controller
         parent::__construct();
 
         $this->load->database();
+        $this->load->helper('calculofinanciero');
         $this->load->model('Terceros_model');
         $this->load->model('Users_model');
+        $this->load->model('Finanzas_model');
+
 
     }
 
@@ -160,7 +163,7 @@ class R_terceros extends REST_Controller
 
 
         } else {
-            $this->response("usuario no autenticado");
+            $this->response("usuario no autenticado", 403);
         }
     }
 
@@ -182,9 +185,125 @@ class R_terceros extends REST_Controller
             $this->load->library('form_validation');
             $this->form_validation->set_data($data);
 
-           
+            if ($this->form_validation->run('estado_finanzas_put') == true) {
+
+                //validar si el tercero existe en la empresa creada
+                // $this->response($data);
+                $finanzas = $this->Finanzas_model->set_datos($data);
+
+                $respuesta = $finanzas->insert_finanzas();
+
+                if ($respuesta['err']) {
+
+                    $this->response($respuesta, 400);
+
+                } else {
+
+                    $this->response($respuesta);
+                }
+
+            } else {
+
+                $respuesta = array(
+                    'err' => true,
+                    'mensaje' => 'error en la validación de datos',
+                    'data' => $this->form_validation->get_errores_arreglo()
+                );
+
+                $this->response($respuesta, 400);
+
+                // echo "todo mal";
+            }
         } else {
-            $this->response('error usuario contraseña', 403);
+            $this->response('usuario no autenticado', 403);
+        }
+    }
+
+    public function obtenerFinanzas_get()
+    {
+        $data = $this->input->request_headers();
+
+        $user = $data['user'];
+        $password = $data['password'];
+
+        $user = $this->Users_model->auth_user($user, $password);
+
+        if (isset($user)) {
+            $this->db->select('(sum(saldPM1+saldPM2+saldPM3+saldPM4+saldPM5+saldPM6)/6) as "saldoPromedio"', false);
+            $this->db->where(array(
+                'fk_tercero' => $data->idTercero,
+                'entity' => $user->entity,
+                'id' => $data->idFinanzas
+            ));
+            $query = $this->db->get('xll_estado_finanzas');
+
+            $saldoPM = $query->row(); //saldo promedio
+            $saldoPM = intval($saldoPM->saldoPromedio);
+
+            $this->db->reset_query();
+
+            $this->db->select('(sum(ingrM1+ingrM2+ingrM3+ingrM4+ingrM5+ingrM6)/6) as "ingresoPromedio"', false);
+            $this->db->where(array(
+                'fk_tercero' => 1,
+                'entity' => 1,
+                'id' => 1
+            ));
+            $query = $this->db->get('xll_estado_finanzas');
+
+            $ingresoPM = $query->row(); //ingreso promedio
+            $ingresoPM = intval($ingresoPM->ingresoPromedio);
+
+            $this->db->reset_query();
+
+            $this->db->select('xll_d_bancos.nombreComercial as "banco", xll_estado_finanzas.ventaAnual, xll_estado_finanzas.costoVentas, xll_estado_finanzas.utilidadAnual, xll_estado_finanzas.clientes, xll_estado_finanzas.inventario, xll_estado_finanzas.actCirculante, xll_estado_finanzas.pasCirculante, xll_estado_finanzas.totalActivos, xll_estado_finanzas.totalPasivo, xll_estado_finanzas.proveedores, xll_estado_finanzas.credCortoPlazo, xll_estado_finanzas.credLargoPlazo', false);
+            $this->db->where(array(
+                'xll_estado_finanzas.fk_tercero' => 1,
+                'xll_estado_finanzas.entity' => 1,
+                'xll_estado_finanzas.id' => 1
+            ));
+            $this->db->join('xll_d_bancos', 'xll_estado_finanzas.banco = xll_d_bancos.id');
+
+            $query = $this->db->get('xll_estado_finanzas');
+
+            $estadosFinancieros = $query->row();
+
+            if (isset($saldoPM) && isset($ingresoPM) && isset($estadosFinancieros)) {
+
+                $respuesta = array(
+                    'err' => false,
+                    'mensaje' => 'Datos financieros correctamente',
+                    'data' => array(
+                        'saldoPromedio' => $saldoPM,
+                        'ingresoPromedio' => $ingresoPM,
+                        'calculoLiquidez' => calculoLiquidez(intval($estadosFinancieros->actCirculante), intval($estadosFinancieros->pasCirculante)),
+                        'endeudamiento' => endeudamiento(intval($estadosFinancieros->totalPasivo), intval($estadosFinancieros->totalActivos)),
+                        'rentabilidad' => rentabilidad(intval($estadosFinancieros->utilidadAnual), intval($estadosFinancieros->ventaAnual)),
+                        'pruebaDelAcido' => pruebaAcido(intval($estadosFinancieros->actCirculante), intval($estadosFinancieros->inventario), intval($estadosFinancieros->pasCirculante)),
+                        'diasInventario' => diasInventario(intval($estadosFinancieros->inventario), intval($estadosFinancieros->costoVentas)),
+                        'diasCliente' => diasCliente(intval($estadosFinancieros->clientes), intval($estadosFinancieros->ventaAnual)),
+                        'diasProveedor' => diasProveedor(intval($estadosFinancieros->proveedores), intval($estadosFinancieros->costoVentas))
+                    )
+                );
+
+                $this->response($respuesta);
+
+            } else {
+
+                $respuesta = array(
+                    'err' => true,
+                    'mensaje' => 'error en la obtencion de datos',
+                    'data' => array(
+                        'error' => $this->db->_error_message(),
+                        'error_db' => $this->db->_error_number()
+                    )
+                );
+                $this->response($respuesta);
+            }
+
+
+        } else {
+            $this->response('usuario no autenticado', 403);
+
         }
     }
 }

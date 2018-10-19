@@ -75,15 +75,11 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-<<<<<<< HEAD
-	'hostname' => '',
-	'username' => '',
-	'password' => '',
-	'database' => '',
+	'hostname' => '192.168.113.129',
+	'username' => 'root',
+	'password' => 'dnc498021',
+	'database' => 'safin',
 	'dbdriver' => 'mysqli',
-=======
-	
->>>>>>> mensaje
 	'dbprefix' => '',
 	'pconnect' => FALSE,
 	'db_debug' => (ENVIRONMENT !== 'production'),
