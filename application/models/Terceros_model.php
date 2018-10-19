@@ -53,9 +53,9 @@ class Terceros_model extends CI_Model
     public function set_datos($data_raw)
     {
         foreach ($data_raw as $nombre_campo => $valor_campo) {
-    
-            if(property_exists('Terceros_model',$nombre_campo)){
-                $this->nombre_campo = $valor_campo;
+
+            if (property_exists('Terceros_model', $nombre_campo)) {
+                $this->$nombre_campo = $valor_campo;
             }
         }
 
@@ -64,7 +64,55 @@ class Terceros_model extends CI_Model
 
     public function insert_tercero()
     {
+        //verificar el correo
+        $this->db->select('rfc');
 
+        $consulta = array(
+            'entity' => $this->entity,
+            'rfc' => $this->rfc
+        );
+        $this->db->where($consulta);
+
+        $query = $this->db->get('xll_terceros');
+
+        $rfc = $query->row();
+
+        if (isset($rfc)) {
+
+            $respuesta = array(
+                'err' => true,
+                'mensaje' => 'El Cliente que intentas registrar ya existe',
+                'data' => null
+            );
+
+            return $respuesta;
+
+        }
+
+        // $tercero = $this->Terceros_model->set_datos($data);
+
+        $done = $this->db->insert('xll_terceros', $this);
+
+        if ($done) {
+            $respuesta = array(
+                'err' => false,
+                'mensaje' => 'El Cliente se inserto satisfactoriamente',
+                'data' => array(
+                    'cliente_id' => $this->db->insert_id()
+                )
+            );
+
+        } else {
+            $respuesta = array(
+                'err' => true,
+                'mensaje' => 'error al instertar',
+                'data' => array(
+                    'error' => $this->db->_error_message(),
+                    'error_db' => $this->db->_error_number()
+                )
+            );
+        }
+        return $respuesta;
     }
 }
 

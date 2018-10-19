@@ -1,6 +1,7 @@
 create table if not exists xll_estado_finanzas(
 
 	id						integer AUTO_INCREMENT PRIMARY KEY,
+    entity                  integer NOT NULL,
     fk_tercero				integer NOT NULL,
     ventaAnual				double	NOT NULL,
     costoVentas				double	NOT NULL,
