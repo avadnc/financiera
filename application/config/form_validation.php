@@ -3,9 +3,8 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 $config = array(
 
-    $tercero_put = array(
+    'tercero_put' => array(
         
-        array('field'=>'entity','label' => 'entidad', 'rules' => 'trim|required|min_length[1]'),
         array('field'=>'nombreFiscal', 'label' => 'Nombre Fiscal','rules' =>'trim|required|min_length[3]'), 
         array('field'=>'nombreAlias','label' => 'Nombre Comercial','rules' =>'trim|required|min_length[3]'), 
         array('field'=>'fechaConst', 'label' => 'Fecha de Constitución', 'rules'=> 'trim|required'), 

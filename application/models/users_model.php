@@ -30,6 +30,7 @@ class Users_model extends CI_Model
     public function auth_user($user, $pass)
     {
   
+        //Solo seleccionamos el entity para poder trasladarlo a la hora de seleccionar nuestros clientes
         $this->db->select('entity');
         $this->db->where('username',$user);
         $this->db->where('password',$pass);

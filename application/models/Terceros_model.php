@@ -50,9 +50,16 @@ class Terceros_model extends CI_Model
         return $row;
     }
 
-    public function set_datos()
+    public function set_datos($data_raw)
     {
+        foreach ($data_raw as $nombre_campo => $valor_campo) {
+    
+            if(property_exists('Terceros_model',$nombre_campo)){
+                $this->nombre_campo = $valor_campo;
+            }
+        }
 
+        return $this;
     }
 
     public function insert_tercero()

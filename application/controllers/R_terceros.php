@@ -117,10 +117,90 @@ class R_terceros extends REST_Controller
 
         $user = $this->Users_model->auth_user($user, $password);
 
-        if(isset($user)){
-            $this->response("usuario autenticado");
+        if (isset($user)) {
 
-            
+            unset($data['user']);
+            unset($data['password']);
+
+            $this->load->library('form_validation');
+            $this->form_validation->set_data($data);
+
+            $data['entity'] = $user->entity;
+
+            if ($this->form_validation->run('tercero_put') == true) {
+
+                //validar si el tercero existe en la empresa creada
+
+                $this->db->select('rfc');
+
+                $consulta = array(
+                    'entity' => $user->entity,
+                    'rfc' => $data['rfc']
+                );
+                $this->db->where($consulta);
+
+                $query = $this->db->get('xll_terceros');
+
+                $rfc = $query->row();
+
+                if (isset($rfc)) {
+
+                    $respuesta = array(
+                        'err' => true,
+                        'mensaje' => 'El Cliente que intentas registrar ya existe',
+                        'data' => null
+                    );
+
+                    $this->response($respuesta);
+
+                }
+
+                $tercero = $this->Tercero_model->set_datos($data);
+                $done = $this->db->insert('xll_terceros', $tercero);
+
+                if ($done) {
+                    $respuesta = array(
+                        'err' => false,
+                        'mensaje' => 'El Cliente se inserto satisfactoriamente',
+                        'data' => array(
+                            'cliente_id' => $this->db->insert_id()
+                        )
+                    );
+
+                    $this->response($respuesta);
+
+
+                } else {
+                    $respuesta = array(
+                        'err' => true,
+                        'mensaje' => 'error al instertar',
+                        'data' => array(
+                            'error' => $this->db->_error_message(),
+                            'error_db' => $this->db->_error_number()
+                        )
+                    );
+
+                    $this->response($respuesta, 500);
+                }
+
+
+
+
+            } else {
+
+                $respuesta = array(
+                    'err' => true,
+                    'mensaje' => 'error en la validación de datos',
+                    'data' => $this->form_validation->get_errores_arreglo()
+                );
+
+                $this->response($respuesta, 400);
+
+                // echo "todo mal";
+            }
+
+
+
         } else {
             $this->response("usuario no autenticado");
         }
