@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 19-10-2018 a las 01:12:42
+-- Tiempo de generación: 19-10-2018 a las 03:42:10
 -- Versión del servidor: 5.7.23-0ubuntu0.18.04.1
 -- Versión de PHP: 7.2.10-0ubuntu0.18.04.1
 
@@ -28,9 +28,121 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `xll_d_bancos` (
   `id` int(11) NOT NULL,
-  `nombre` varchar(100) DEFAULT NULL,
-  `nombreComercial` varchar(100) DEFAULT NULL
+  `nombre` varchar(255) DEFAULT NULL,
+  `nombreComercial` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `xll_d_bancos`
+--
+
+INSERT INTO `xll_d_bancos` (`id`, `nombre`, `nombreComercial`) VALUES
+(1, 'Banco Nacional de México, S.A., Institución de Banca Múltiple, Grupo Financiero Banamex', 'BANAMEX'),
+(2, 'BBVA Bancomer, S.A., Institución de Banca Múltiple, Grupo Financiero BBVA Bancomer', 'BBVA BANCOMER'),
+(3, 'Banco Santander (México), S.A., Institución de Banca Múltiple, Grupo Financiero Santander', 'SANTANDER'),
+(4, 'HSBC México, S.A., institución De Banca Múltiple, Grupo Financiero HSBC', 'HSBC'),
+(5, 'Banco del Bajío, S.A., Institución de Banca Múltiple', 'BAJIO'),
+(6, 'IXE Banco, S.A., Institución de Banca Múltiple, IXE Grupo Financiero', 'IXE'),
+(7, 'Banco Inbursa, S.A., Institución de Banca Múltiple, Grupo Financiero Inbursa', 'INBURSA'),
+(8, 'Banco Interacciones, S.A., Institución de Banca Múltiple', 'INTERACCIONES'),
+(9, 'Banca Mifel, S.A., Institución de Banca Múltiple, Grupo Financiero Mifel', 'MIFEL'),
+(10, 'Scotiabank Inverlat, S.A.', 'SCOTIABANK'),
+(11, 'Banco Regional de Monterrey, S.A., Institución de Banca Múltiple, Banregio Grupo Financiero', 'BANREGIO'),
+(12, 'Banco Invex, S.A., Institución de Banca Múltiple, Invex Grupo Financiero', 'INVEX'),
+(13, 'Bansi, S.A., Institución de Banca Múltiple', 'BANSI'),
+(14, 'Banca Afirme, S.A., Institución de Banca Múltiple', 'AFIRME'),
+(15, 'Banco Mercantil del Norte, S.A., Institución de Banca Múltiple, Grupo Financiero Banorte', 'BANORTE/IXE'),
+(16, 'The Royal Bank of Scotland México, S.A., Institución de Banca Múltiple', 'THE ROYAL BANK'),
+(17, 'American Express Bank (México), S.A., Institución de Banca Múltiple', 'AMERICAN EXPRESS'),
+(18, 'Bank of America México, S.A., Institución de Banca Múltiple, Grupo Financiero Bank of America', 'BAMSA'),
+(19, 'Bank of Tokyo-Mitsubishi UFJ (México), S.A.', 'TOKYO'),
+(20, 'Banco J.P. Morgan, S.A., Institución de Banca Múltiple, J.P. Morgan Grupo Financiero', 'JP MORGAN'),
+(21, 'Banco Monex, S.A., Institución de Banca Múltiple', 'BMONEX'),
+(22, 'Banco Ve Por Mas, S.A. Institución de Banca Múltiple', 'VE POR MAS'),
+(23, 'ING Bank (México), S.A., Institución de Banca Múltiple, ING Grupo Financiero', 'ING'),
+(24, 'Deutsche Bank México, S.A., Institución de Banca Múltiple', 'DEUTSCHE'),
+(25, 'Banco Azteca, S.A. Institución de Banca Múltiple.', 'AZTECA'),
+(26, 'Banco Autofin México, S.A. Institución de Banca Múltiple', 'AUTOFIN'),
+(27, 'Barclays Bank México, S.A., Institución de Banca Múltiple, Grupo Financiero Barclays México', 'BARCLAYS'),
+(28, 'Banco Compartamos, S.A., Institución de Banca Múltiple', 'COMPARTAMOS'),
+(29, 'Banco Ahorro Famsa, S.A., Institución de Banca Múltiple', 'BANCO FAMSA'),
+(30, 'Banco Multiva, S.A., Institución de Banca Múltiple, Multivalores Grupo Financiero', 'BMULTIVA'),
+(31, 'Banco Actinver, S.A. Institución de Banca Múltiple, Grupo Financiero Actinver', 'ACTINVER'),
+(32, 'Banco Wal-Mart de México Adelante, S.A., Institución de Banca Múltiple', 'WAL-MART'),
+(33, 'Nacional Financiera, Sociedad Nacional de Crédito, Institución de Banca de Desarrollo', 'NAFIN'),
+(34, 'Intercam Banco, S.A., Institución de Banca Múltiple, Intercam Grupo Financiero', 'INTERCAM BANCO'),
+(35, 'BanCoppel, S.A., Institución de Banca Múltiple', 'BANCOPPEL'),
+(36, 'ABC Capital, S.A., Institución de Banca Múltiple', 'ABC CAPITAL'),
+(37, 'UBS Bank México, S.A., Institución de Banca Múltiple, UBS Grupo Financiero', 'UBS BANK'),
+(38, 'Consubanco, S.A. Institución de Banca Múltiple', 'CONSUBANCO'),
+(39, 'Volkswagen Bank, S.A., Institución de Banca Múltiple', 'VOLKSWAGEN'),
+(40, 'CIBanco, S.A.', 'CIBANCO'),
+(41, 'Banco Base, S.A., Institución de Banca Múltiple', 'BBASE'),
+(42, 'Bankaool, S.A., Institución de Banca Múltiple', 'BANKAOOL'),
+(43, 'Banco PagaTodo, S.A., Institución de Banca Múltiple', 'PAGATODO'),
+(44, 'Banco Forjadores, S.A., Institución de Banca Múltiple', 'FORJADORES'),
+(45, 'Banco Inmobiliario Mexicano, S.A., Institución de Banca Múltiple', 'INMOBILIARIO'),
+(46, 'Fundación Dondé Banco, S.A., Institución de Banca Múltiple', 'DONDÉ'),
+(47, 'Banco Bancrea, S.A., Institución de Banca Múltiple', 'BANCREA'),
+(48, 'Banco Progreso Chihuahua, S.A.', 'PROGRESO'),
+(49, 'Banco Finterra, S.A., Institución de Banca Múltiple', 'BANCO FINTERRA'),
+(50, 'Industrial and Commercial Bank of China México, S.A., Institución de Banca Múltiple', 'ICBC'),
+(51, 'Banco Sabadell, S.A., Institución de Banca Múltiple', 'SABADELL'),
+(52, 'Banco Shinhan de México, S.A., Institución de Banca Múltiple', 'SHINHAN'),
+(53, 'Mizuho Bank México, S.A., Institución de Banca Múltiple', 'MIZUHO BANK'),
+(54, 'Bank of China México, S.A., Institución de Banca Múltiple', 'BANK OF CHINA'),
+(55, 'Banco S3 México, S.A., Institución de Banca Múltiple', 'BANCO S3'),
+(56, 'Sociedad Hipotecaria Federal, Sociedad Nacional de Crédito, Institución de Banca de Desarrollo', 'HIPOTECARIA FEDERAL'),
+(57, 'Monex Casa de Bolsa, S.A. de C.V. Monex Grupo Financiero', 'MONEXCB'),
+(58, 'GBM Grupo Bursátil Mexicano, S.A. de C.V. Casa de Bolsa', 'GBM'),
+(59, 'Masari Casa de Bolsa, S.A.', 'MASARI'),
+(60, 'Value, S.A. de C.V. Casa de Bolsa', 'VALUE'),
+(61, 'Estructuradores del Mercado de Valores Casa de Bolsa, S.A. de C.V.', 'ESTRUCTURADORES'),
+(62, 'Casa de Cambio Tiber, S.A. de C.V.', 'TIBER'),
+(63, 'Vector Casa de Bolsa, S.A. de C.V.', 'VECTOR'),
+(64, 'B y B, Casa de Cambio, S.A. de C.V.', 'B&B'),
+(65, 'Acciones y Valores Banamex, S.A. de C.V., Casa de Bolsa', 'ACCIVAL'),
+(66, 'Merrill Lynch México, S.A. de C.V. Casa de Bolsa', 'MERRILL LYNCH'),
+(67, 'Casa de Bolsa Finamex, S.A. de C.V.', 'FINAMEX'),
+(68, 'Valores Mexicanos Casa de Bolsa, S.A. de C.V.', 'VALMEX'),
+(69, 'Unica Casa de Cambio, S.A. de C.V.', 'UNICA'),
+(70, 'MAPFRE Tepeyac, S.A.', 'MAPFRE'),
+(71, 'Profuturo G.N.P., S.A. de C.V., Afore', 'PROFUTURO'),
+(72, 'Actinver Casa de Bolsa, S.A. de C.V.', 'CB ACTINVER'),
+(73, 'OPERADORA ACTINVER, S.A. DE C.V.', 'OACTIN'),
+(74, 'Skandia Vida, S.A. de C.V.', 'SKANDIA'),
+(75, 'Deutsche Securities, S.A. de C.V. CASA DE BOLSA', 'CBDEUTSCHE'),
+(76, 'Zurich Compañía de Seguros, S.A.', 'ZURICH'),
+(77, 'Zurich Vida, Compañía de Seguros, S.A.', 'ZURICHVI'),
+(78, 'Hipotecaria Su Casita, S.A. de C.V. SOFOM ENR', 'SU CASITA'),
+(79, 'Intercam Casa de Bolsa, S.A. de C.V.', 'CB INTERCAM'),
+(80, 'CI Casa de Bolsa, S.A. de C.V.', 'CI BOLSA'),
+(81, 'Bulltick Casa de Bolsa, S.A., de C.V.', 'BULLTICK CB'),
+(82, 'Sterling Casa de Cambio, S.A. de C.V.', 'STERLING'),
+(83, 'Fincomún, Servicios Financieros Comunitarios, S.A. de C.V.', 'FINCOMUN'),
+(84, 'HDI Seguros, S.A. de C.V.', 'HDI SEGUROS'),
+(85, 'Order Express Casa de Cambio, S.A. de C.V', 'ORDER'),
+(86, 'Akala, S.A. de C.V., Sociedad Financiera Popular', 'AKALA'),
+(87, 'J.P. Morgan Casa de Bolsa, S.A. de C.V. J.P. Morgan Grupo Financiero', 'CB JPMORGAN'),
+(88, 'Operadora de Recursos Reforma, S.A. de C.V., S.F.P.', 'REFORMA'),
+(89, 'Sistema de Transferencias y Pagos STP, S.A. de C.V.SOFOM ENR', 'STP'),
+(90, 'Telecomunicaciones de México', 'TELECOMM'),
+(91, 'Evercore Casa de Bolsa, S.A. de C.V.', 'EVERCORE'),
+(92, 'Skandia Operadora de Fondos, S.A. de C.V.', 'SKANDIA'),
+(93, 'Seguros Monterrey New York Life, S.A de C.V', 'SEGMTY'),
+(94, 'Solución Asea, S.A. de C.V., Sociedad Financiera Popular', 'ASEA'),
+(95, 'Kuspit Casa de Bolsa, S.A. de C.V.', 'KUSPIT'),
+(96, 'J.P. SOFIEXPRESS, S.A. de C.V., S.F.P.', 'SOFIEXPRESS'),
+(97, 'UNAGRA, S.A. de C.V., S.F.P.', 'UNAGRA'),
+(98, 'OPCIONES EMPRESARIALES DEL NORESTE, S.A. DE C.V., S.F.P.', 'OPCIONES EMPRESARIALES DEL NOROESTE'),
+(99, 'Libertad Servicios Financieros, S.A. De C.V.', 'LIBERTAD'),
+(100, 'Cls Bank International', 'CLS'),
+(101, 'SD. Indeval, S.A. de C.V.', 'INDEVAL'),
+(102, 'Banco Nacional de Comercio Exterior, Sociedad Nacional de Crédito, Institución de Banca de Desarrollo', 'BANCOMEXT'),
+(103, 'Banco Nacional de Obras y Servicios Públicos, Sociedad Nacional de Crédito, Institución de Banca de Desarrollo', 'BANOBRAS'),
+(104, 'Banco Nacional del Ejército, Fuerza Aérea y Armada, Sociedad Nacional de Crédito, Institución de Banca de Desarrollo', 'BANJERCITO'),
+(105, 'Banco Credit Suisse (México), S.A. Institución de Banca Múltiple, Grupo Financiero Credit Suisse (México)', 'CREDIT SUISSE'),
+(106, 'Banco del Ahorro Nacional y Servicios Financieros, Sociedad Nacional de Crédito, Institución de Banca de Desarrollo', 'BANSEFI');
 
 -- --------------------------------------------------------
 
@@ -174,7 +286,7 @@ ALTER TABLE `xll_users`
 -- AUTO_INCREMENT de la tabla `xll_d_bancos`
 --
 ALTER TABLE `xll_d_bancos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=107;
 --
 -- AUTO_INCREMENT de la tabla `xll_estado_finanzas`
 --
