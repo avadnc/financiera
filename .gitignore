@@ -31,4 +31,8 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 /tests/results/
 
 #fichero configuracion base de datos
+<<<<<<< HEAD
 /application/config/database.*
+=======
+/application/config/database.php
+>>>>>>> mensaje
