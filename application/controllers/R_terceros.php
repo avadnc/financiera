@@ -226,14 +226,15 @@ class R_terceros extends REST_Controller
         $user = $data['user'];
         $password = $data['password'];
 
+      
         $user = $this->Users_model->auth_user($user, $password);
 
         if (isset($user)) {
             $this->db->select('(sum(saldPM1+saldPM2+saldPM3+saldPM4+saldPM5+saldPM6)/6) as "saldoPromedio"', false);
             $this->db->where(array(
-                'fk_tercero' => $data->idTercero,
+                'fk_tercero' => $data['idTercero'],
                 'entity' => $user->entity,
-                'id' => $data->idFinanzas
+                'id' => $data['idFinanzas']
             ));
             $query = $this->db->get('xll_estado_finanzas');
 
@@ -244,9 +245,9 @@ class R_terceros extends REST_Controller
 
             $this->db->select('(sum(ingrM1+ingrM2+ingrM3+ingrM4+ingrM5+ingrM6)/6) as "ingresoPromedio"', false);
             $this->db->where(array(
-                'fk_tercero' => 1,
-                'entity' => 1,
-                'id' => 1
+                'fk_tercero' => $data['idTercero'],
+                'entity' => $user->entity,
+                'id' => $data['idFinanzas']
             ));
             $query = $this->db->get('xll_estado_finanzas');
 
