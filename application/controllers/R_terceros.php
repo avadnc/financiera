@@ -240,7 +240,7 @@ class R_terceros extends REST_Controller
 
             $saldoPM = $query->row(); //saldo promedio
             $saldoPM = intval($saldoPM->saldoPromedio);
-
+            // $this->response($saldoPM);
             $this->db->reset_query();
 
             $this->db->select('(sum(ingrM1+ingrM2+ingrM3+ingrM4+ingrM5+ingrM6)/6) as "ingresoPromedio"', false);
@@ -292,11 +292,11 @@ class R_terceros extends REST_Controller
 
                 $respuesta = array(
                     'err' => true,
-                    'mensaje' => 'error en la obtencion de datos',
-                    'data' => array(
-                        'error' => $this->db->_error_message(),
-                        'error_db' => $this->db->_error_number()
-                    )
+                    'mensaje' => 'error en la obtencion de datos'
+                    // 'data' => array(
+                    //     'error' => $this->db->_error_message(),
+                    //     'error_db' => $this->db->_error_number()
+                    // )
                 );
                 $this->response($respuesta);
             }
